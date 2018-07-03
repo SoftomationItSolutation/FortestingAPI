@@ -1,0 +1,10 @@
+C:\Users\Shiv\Desktop\FortestingAPI\BAL\bin\BAL.dll
+C:\Users\Shiv\Desktop\FortestingAPI\BAL\bin\BAL.pdb
+C:\Users\Shiv\Desktop\FortestingAPI\BAL\obj\Release\BAL.csproj.CoreCompileInputs.cache
+C:\Users\Shiv\Desktop\FortestingAPI\BAL\obj\Release\BAL.csproj.CopyComplete
+C:\Users\Shiv\Desktop\FortestingAPI\BAL\obj\Release\BAL.dll
+C:\Users\Shiv\Desktop\FortestingAPI\BAL\obj\Release\BAL.pdb
+D:\Projects\WebApi\FortestingAPI\BAL\bin\BAL.dll
+D:\Projects\WebApi\FortestingAPI\BAL\bin\BAL.pdb
+D:\Projects\WebApi\FortestingAPI\BAL\obj\Release\BAL.dll
+D:\Projects\WebApi\FortestingAPI\BAL\obj\Release\BAL.pdb
