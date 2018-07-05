@@ -304,7 +304,7 @@ namespace BAL
             {
                 Sqldbmanager.Open();
                 Sqldbmanager.CreateParameters(2);
-                Sqldbmanager.AddParameters(0, "@UserId", obj.Name);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
                 Sqldbmanager.AddParameters(1, "@UserPassword", obj.Password);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_ChnagePassword");
                 

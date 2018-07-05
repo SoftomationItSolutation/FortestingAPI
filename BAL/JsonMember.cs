@@ -15,6 +15,7 @@ namespace BAL
             public Int64 Id { get; set; }
             public Int64 OTP { get; set; }
             public Int64 OTPId { get; set; }
+            public Int64 UserId { get; set; }
             public string Name { get; set; }
             public string UserName { get; set; }
             public string Password { get; set; }
