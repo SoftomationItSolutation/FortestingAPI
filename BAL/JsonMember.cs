@@ -34,6 +34,9 @@ namespace BAL
         {
             public string flag { get; set; }
             public string Message { get; set; }
+            public string TranscationId { get; set; }
+            public Decimal AvailableBalance { get; set; }
+            
         }
         public class registrationReturn {
             public string flag { get; set; }

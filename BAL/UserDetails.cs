@@ -20,7 +20,7 @@ namespace BAL
         DataTable dt = new DataTable();
         Email objEMail = new Email();
         bool SmsResult = false;
-        bool MailResult = false;
+
         public DataSet LogError(string ModuleName, string ErrorSource, string Description)
         {
             try
@@ -357,6 +357,7 @@ namespace BAL
                 {
                     flag = "false",
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    TranscationId=""
                 };
             }
             finally
@@ -367,7 +368,49 @@ namespace BAL
             {
                 flag = DS.Tables[0].Rows[0]["flag"].ToString(),
                 Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                TranscationId = DS.Tables[0].Rows[0]["TranscationId"].ToString()
             };
+            return obj1;
+        }
+
+        public object GetAvailableBalance(JsonMember.TranscationManagement obj)
+        {
+            TranscationReturn obj1 = new TranscationReturn();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(4);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                Sqldbmanager.AddParameters(1, "@TranscationSourceId", obj.TranscationSourceId);
+                Sqldbmanager.AddParameters(2, "@Amount", obj.Amount);
+                Sqldbmanager.AddParameters(3, "@PartnerUserId", obj.PatnerUserId);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GetAvailableBalance");
+
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Get Available Balance", Ex.Message.ToString(), "SP Name: USP_GetAvailableBalance");
+                obj1 = new TranscationReturn()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    TranscationId = "",
+                    AvailableBalance = 0
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+            obj1 = new TranscationReturn()
+            {
+                flag = "true",
+                Message = "success",
+                TranscationId = "",
+                AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString())
+            };
+
+            
             return obj1;
         }
     }
