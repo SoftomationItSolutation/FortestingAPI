@@ -255,8 +255,120 @@ namespace BAL
             return obj1;
         }
 
-      
+        public object ForgetPassword(JsonMember.UserDetails obj)
+        {
+            registrationReturn obj1 = new registrationReturn();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(1);
+                Sqldbmanager.AddParameters(0, "@LoginId", obj.LoginId);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "usp_ForgetPassword");
+                if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
+                {
+                    Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
+                    thrdSms.Start();
+                }
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Forget Password", Ex.Message.ToString(), "SP Name: usp_ForgetPassword");
+                obj1 = new registrationReturn()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    OTPId = "",
+                    OTP = "",
+                    UserId = ""
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+            obj1 = new registrationReturn()
+            {
+                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
+                OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
+                UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+            };
+            return obj1;
+        }
 
+        public object ChangePassword(JsonMember.UserDetails obj)
+        {
+            registrationReturn obj1 = new registrationReturn();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(2);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.Name);
+                Sqldbmanager.AddParameters(1, "@UserPassword", obj.Password);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_ChnagePassword");
+                
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Change Password", Ex.Message.ToString(), "SP Name: USP_ChnagePassword");
+                obj1 = new registrationReturn()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    OTPId = "",
+                    OTP = "",
+                    UserId = ""
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+            obj1 = new registrationReturn()
+            {
+                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                OTPId = "",
+                OTP = "",
+                UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+            };
+            return obj1;
+        }
 
+        public object TranscationManagement(JsonMember.TranscationManagement obj)
+        {
+            TranscationReturn obj1 = new TranscationReturn();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(4);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                Sqldbmanager.AddParameters(1, "@TranscationSourceId", obj.TranscationSourceId);
+                Sqldbmanager.AddParameters(2, "@Amount", obj.Amount);
+                Sqldbmanager.AddParameters(3, "@PartnerUserId", obj.PatnerUserId);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_TranscationManagement");
+               
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Transcation Management", Ex.Message.ToString(), "SP Name: USP_TranscationManagement");
+                obj1 = new TranscationReturn()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+            obj1 = new TranscationReturn()
+            {
+                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+            };
+            return obj1;
+        }
     }
 }
