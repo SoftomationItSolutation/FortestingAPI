@@ -379,11 +379,8 @@ namespace BAL
             try
             {
                 Sqldbmanager.Open();
-                Sqldbmanager.CreateParameters(4);
+                Sqldbmanager.CreateParameters(1);
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
-                Sqldbmanager.AddParameters(1, "@TranscationSourceId", obj.TranscationSourceId);
-                Sqldbmanager.AddParameters(2, "@Amount", obj.Amount);
-                Sqldbmanager.AddParameters(3, "@PartnerUserId", obj.PatnerUserId);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GetAvailableBalance");
 
             }
