@@ -34,6 +34,13 @@ namespace FortestingAPI.Controllers
         }
 
         [HttpPost]
+        public object GetProfileByLogin(JsonMember.UserDetails obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.GetProfileByLogin(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
+        [HttpPost]
         public object GenerateUser(JsonMember.UserDetails obj)
         {
             string Det = JsonConvert.SerializeObject(UserMaster.GenerateUser(obj), Formatting.Indented);

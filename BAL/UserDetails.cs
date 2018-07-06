@@ -303,9 +303,11 @@ namespace BAL
             try
             {
                 Sqldbmanager.Open();
-                Sqldbmanager.CreateParameters(2);
+                Sqldbmanager.CreateParameters(4);
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
-                Sqldbmanager.AddParameters(1, "@UserPassword", obj.Password);
+                Sqldbmanager.AddParameters(1, "@OTPId", obj.OTPId);
+                Sqldbmanager.AddParameters(2, "@OTP", obj.OTP);
+                Sqldbmanager.AddParameters(3, "@UserPassword", obj.Password);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_ChnagePassword");
                 
             }
@@ -335,6 +337,64 @@ namespace BAL
             };
             return obj1;
         }
+
+        public Object GetProfileByLogin(JsonMember.UserDetails obj)
+        {
+            LoginReturn Lobj = new LoginReturn();
+           
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(1);
+                Sqldbmanager.AddParameters(0, "@LoginId", obj.LoginId);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_LoginMaster");
+                if (DS.Tables[1].Rows.Count > 0)
+                {
+                    Lobj = new LoginReturn()
+                    {
+                        flag = "true",
+                        Message = "Success",
+                        EmailId = DS.Tables[1].Rows[0]["EmailId"].ToString(),
+                        MobileNo = DS.Tables[1].Rows[0]["MobileNo"].ToString(),
+                        Name = DS.Tables[1].Rows[0]["Name"].ToString(),
+                        UserName = DS.Tables[1].Rows[0]["UserName"].ToString(),
+                        UserId = DS.Tables[1].Rows[0]["UserId"].ToString()
+                    };
+                }
+                else
+                {
+                    Lobj = new LoginReturn()
+                    {
+                        flag = "false",
+                        Message = "Invalid Email/Mobile",
+                        EmailId = "",
+                        MobileNo = "",
+                        Name = "",
+                        UserId = ""
+                    };
+
+                }
+            }
+            catch (Exception Ex)
+            {
+                Lobj = new LoginReturn()
+                {
+                    flag = "false",
+                    Message = "Invalid Email/Mobile",
+                    EmailId = "",
+                    MobileNo = "",
+                    Name = "",
+                    UserId = ""
+                };
+
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+            return Lobj;
+        }
+
 
         public object TranscationManagement(JsonMember.TranscationManagement obj)
         {

@@ -8,3 +8,7 @@ D:\Projects\WebApi\FortestingAPI\BAL\bin\BAL.dll
 D:\Projects\WebApi\FortestingAPI\BAL\bin\BAL.pdb
 D:\Projects\WebApi\FortestingAPI\BAL\obj\Release\BAL.dll
 D:\Projects\WebApi\FortestingAPI\BAL\obj\Release\BAL.pdb
+D:\Projects\MyApi\FortestingAPI\BAL\bin\BAL.dll
+D:\Projects\MyApi\FortestingAPI\BAL\bin\BAL.pdb
+D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.dll
+D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.pdb
