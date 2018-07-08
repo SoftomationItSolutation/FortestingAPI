@@ -415,7 +415,8 @@ namespace BAL
                 {
                     flag = DS.Tables[0].Rows[0]["flag"].ToString(),
                     Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                    TranscationId = DS.Tables[0].Rows[0]["TranscationId"].ToString()
+                    TranscationId = DS.Tables[0].Rows[0]["TranscationId"].ToString(),
+                    AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString())
                 };
             }
             catch (Exception Ex)
