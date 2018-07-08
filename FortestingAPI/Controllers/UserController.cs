@@ -26,6 +26,7 @@ namespace FortestingAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
+
         [HttpPost]
         public object LoginMaster(JsonMember.UserDetails obj)
         {
