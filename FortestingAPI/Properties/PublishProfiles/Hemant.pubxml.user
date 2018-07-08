@@ -76,7 +76,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:44</publishTime>
     </File>
     <File Include="bin/BAL.dll">
-      <publishTime>07/07/2018 01:13:11</publishTime>
+      <publishTime>07/08/2018 14:02:08</publishTime>
     </File>
     <File Include="bin/DAL.dll">
       <publishTime>06/15/2018 12:04:32</publishTime>
@@ -88,7 +88,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:44</publishTime>
     </File>
     <File Include="bin/FortestingAPI.dll">
-      <publishTime>07/07/2018 01:13:12</publishTime>
+      <publishTime>07/08/2018 14:02:10</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>06/28/2018 13:11:48</publishTime>
