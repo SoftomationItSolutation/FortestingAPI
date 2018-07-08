@@ -133,7 +133,7 @@ namespace BAL
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GenerateUser");
                 if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
                 {
-
+                    
                     Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
                     thrdSms.Start();
 
@@ -141,6 +141,14 @@ namespace BAL
                     //thrdMail.Start();
 
                 }
+                obj1 = new registrationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
+                    OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
+                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+                };
             }
             catch (Exception Ex)
             {
@@ -158,14 +166,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-           obj1 = new registrationReturn()
-            {
-                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
-                OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
-                UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
-            };
+           
             return obj1;
         }
 
@@ -179,7 +180,14 @@ namespace BAL
                 Sqldbmanager.AddParameters(0, "@OTPId", obj.OTPId);
                 Sqldbmanager.AddParameters(1, "@OTP", obj.OTP);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_ValidateOTP");
-               
+                obj1 = new registrationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
+                    OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
+                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+                };
             }
             catch (Exception Ex)
             {
@@ -197,14 +205,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-            obj1 = new registrationReturn()
-            {
-                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
-                OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
-                UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
-            };
+           
             return obj1;
         }
 
@@ -227,6 +228,14 @@ namespace BAL
                     //thrdMail.Start();
 
                 }
+                obj1 = new registrationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = "",
+                    OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
+                    OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
+                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+                };
             }
             catch (Exception Ex)
             {
@@ -244,14 +253,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-            obj1 = new registrationReturn()
-            {
-                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                Message = "",
-                OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
-                OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
-                UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
-            };
+           
             return obj1;
         }
 
@@ -269,6 +271,14 @@ namespace BAL
                     Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
                     thrdSms.Start();
                 }
+                obj1 = new registrationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
+                    OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
+                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+                };
             }
             catch (Exception Ex)
             {
@@ -286,14 +296,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-            obj1 = new registrationReturn()
-            {
-                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                OTPId = DS.Tables[0].Rows[0]["OTPId"].ToString(),
-                OTP = DS.Tables[0].Rows[0]["OTP"].ToString(),
-                UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
-            };
+           
             return obj1;
         }
 
@@ -308,12 +311,19 @@ namespace BAL
                 Sqldbmanager.AddParameters(1, "@OTPId", obj.OTPId);
                 Sqldbmanager.AddParameters(2, "@OTP", obj.OTP);
                 Sqldbmanager.AddParameters(3, "@UserPassword", obj.Password);
-                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_ChnagePassword");
-                
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_ChangePassword");
+                obj1 = new registrationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    OTPId = "",
+                    OTP = "",
+                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+                };
             }
             catch (Exception Ex)
             {
-                DS = LogError("Change Password", Ex.Message.ToString(), "SP Name: USP_ChnagePassword");
+                DS = LogError("Change Password", Ex.Message.ToString(), "SP Name: USP_ChangePassword");
                 obj1 = new registrationReturn()
                 {
                     flag = "false",
@@ -327,14 +337,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-            obj1 = new registrationReturn()
-            {
-                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                OTPId = "",
-                OTP = "",
-                UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
-            };
+            
             return obj1;
         }
 
@@ -408,7 +411,12 @@ namespace BAL
                 Sqldbmanager.AddParameters(2, "@Amount", obj.Amount);
                 Sqldbmanager.AddParameters(3, "@PartnerUserId", obj.PatnerUserId);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_TranscationManagement");
-               
+                obj1 = new TranscationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    TranscationId = DS.Tables[0].Rows[0]["TranscationId"].ToString()
+                };
             }
             catch (Exception Ex)
             {
@@ -424,12 +432,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-            obj1 = new TranscationReturn()
-            {
-                flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                TranscationId = DS.Tables[0].Rows[0]["TranscationId"].ToString()
-            };
+           
             return obj1;
         }
 
@@ -442,7 +445,13 @@ namespace BAL
                 Sqldbmanager.CreateParameters(1);
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GetAvailableBalance");
-
+                obj1 = new TranscationReturn()
+                {
+                    flag = "true",
+                    Message = "success",
+                    TranscationId = "",
+                    AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString())
+                };
             }
             catch (Exception Ex)
             {
@@ -459,13 +468,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-            obj1 = new TranscationReturn()
-            {
-                flag = "true",
-                Message = "success",
-                TranscationId = "",
-                AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString())
-            };
+            
 
             
             return obj1;

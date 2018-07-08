@@ -71,7 +71,7 @@ namespace FortestingAPI.Controllers
         [HttpPost]
         public string ChangePassword(JsonMember.UserDetails obj)
         {
-            string Det = JsonConvert.SerializeObject(UserMaster.ForgetPassword(obj), Formatting.Indented);
+            string Det = JsonConvert.SerializeObject(UserMaster.ChangePassword(obj), Formatting.Indented);
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
