@@ -89,7 +89,7 @@ namespace BAL
                     Lobj = new LoginReturn()
                     {
                         flag = "false",
-                        Message = "Invalid Email/Mobile",
+                        Message = "User not register with us.",
                         EmailId = "",
                         MobileNo = "",
                         Name = "",
