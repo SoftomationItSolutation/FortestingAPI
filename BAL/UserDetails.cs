@@ -133,9 +133,9 @@ namespace BAL
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GenerateUser");
                 if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
                 {
-                    
-                    Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
-                    thrdSms.Start();
+                    objEMail.SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code.");
+                    //Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
+                    //thrdSms.Start();
 
                     //Thread thrdMail = new Thread(() => MailResult = (new Email()).sendMail(obj.EmailId, "", "Flipprr Verification Code", DS.Tables[0].Rows[0]["OTP"].ToString(), ""));
                     //thrdMail.Start();
@@ -268,8 +268,9 @@ namespace BAL
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "usp_ForgetPassword");
                 if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
                 {
-                    Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
-                    thrdSms.Start();
+                    objEMail.SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code for forget password.");
+                    //Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
+                    //thrdSms.Start();
                 }
                 obj1 = new registrationReturn()
                 {
