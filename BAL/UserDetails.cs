@@ -479,7 +479,7 @@ namespace BAL
 
         public object GetTranscationDetails(JsonMember.TranscationManagement obj)
         {
-            List<JsonMember.TranscationDetails> lstTranscationDetails = new List<JsonMember.TranscationDetails>;
+            List<JsonMember.TranscationDetails> lstTranscationDetails = new List<JsonMember.TranscationDetails>();
             try
             {
                 Sqldbmanager.Open();

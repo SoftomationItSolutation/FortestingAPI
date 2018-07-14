@@ -18,4 +18,3 @@ D:\Projects\MyApi\FortestingAPI\BAL\bin\BAL.dll
 D:\Projects\MyApi\FortestingAPI\BAL\bin\BAL.pdb
 D:\Projects\MyApi\FortestingAPI\BAL\obj\Debug\BAL.dll
 D:\Projects\MyApi\FortestingAPI\BAL\obj\Debug\BAL.pdb
-D:\Projects\MyApi\FortestingAPI\BAL\obj\Debug\BAL.csprojResolveAssemblyReference.cache
