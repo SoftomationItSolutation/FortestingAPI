@@ -20,6 +20,7 @@ namespace BAL
         DataTable dt = new DataTable();
         Email objEMail = new Email();
         bool SmsResult = false;
+        IDataReader idr;
 
         public DataSet LogError(string ModuleName, string ErrorSource, string Description)
         {
@@ -343,7 +344,7 @@ namespace BAL
             return obj1;
         }
 
-        public Object GetProfileByLogin(JsonMember.UserDetails obj)
+        public object GetProfileByLogin(JsonMember.UserDetails obj)
         {
             LoginReturn Lobj = new LoginReturn();
            
@@ -399,7 +400,6 @@ namespace BAL
             }
             return Lobj;
         }
-
 
         public object TranscationManagement(JsonMember.TranscationManagement obj)
         {
@@ -475,6 +475,59 @@ namespace BAL
 
             
             return obj1;
+        }
+
+        public object GetTranscationDetails(JsonMember.TranscationManagement obj)
+        {
+            List<JsonMember.TranscationDetails> lstTranscationDetails = new List<JsonMember.TranscationDetails>;
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(1);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                Sqldbmanager.AddParameters(1, "@for", obj.TranscationSource);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetTranscationDetails");
+                lstTranscationDetails.Add(new JsonMember.TranscationDetails()
+                {
+                    flag = "true",
+                    Message = "success",
+                    UserId =Convert.ToInt64(idr["UserId"]),
+                    TranscationSourceId = Convert.ToInt64(idr["TranscationSourceId"]),
+                    PartnerUserId = Convert.ToInt64(idr["PartnerUserId"]),
+                    UserLoginId = Convert.ToString(idr["UserLoginId"]),
+                    EmailId = Convert.ToString(idr["EmailId"]),
+                    MobileNo = Convert.ToString(idr["MobileNo"]),
+                    TranscationId = Convert.ToString(idr["TranscationId"]),
+                    Amount = Convert.ToDecimal(idr["Amount"]),
+                    AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"]),
+                    TranscationSource = Convert.ToString(idr["TranscationSource"]),
+                    TranscationDetail = Convert.ToString(idr["TranscationDetail"]),
+                    PartnerLoginId = Convert.ToString(idr["PartnerLoginId"]),
+                    PartnerEmailId = Convert.ToString(idr["PartnerEmailId"]),
+                    PartnerMobileNo = Convert.ToString(idr["PartnerMobileNo"]),
+                    Ldate = Convert.ToString(idr["Ldate"]),
+                    LTime = Convert.ToString(idr["LTime"]),
+                });
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Get Available Balance", Ex.Message.ToString(), "SP Name: USP_GetTranscationDetails");
+                lstTranscationDetails.Add(new JsonMember.TranscationDetails()
+                {
+                    flag= "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString()
+                });
+                
+            }
+            finally
+            {
+                idr.Close();
+                Sqldbmanager.Close();
+            }
+
+
+
+            return lstTranscationDetails;
         }
     }
 }

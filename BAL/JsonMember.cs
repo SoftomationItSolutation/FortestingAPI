@@ -9,7 +9,6 @@ namespace BAL
 {
     public class JsonMember
     {
-        DBManager Sqldbmanager = new DBManager(DataProvider.SqlServer, ConfigurationManager.ConnectionStrings["E_wallet"].ConnectionString);
         public class UserDetails
         {
             public Int64 Id { get; set; }
@@ -29,7 +28,30 @@ namespace BAL
             public Int64 UserId { get; set; }
             public Int64 PatnerUserId { get; set; }
             public Int64 TranscationSourceId { get; set; }
+            public String TranscationSource { get; set; }
             public Decimal Amount { get; set; }
+            public List<TranscationDetails> lstTranscationDetails;
+        }
+        public class TranscationDetails
+        {
+            public Int64 UserId { get; set; }
+            public Int64 TranscationSourceId { get; set; }
+            public Int64 PartnerUserId { get; set; }
+            public string UserLoginId { get; set; }
+            public string EmailId { get; set; }
+            public string MobileNo { get; set; }
+            public string TranscationId { get; set; }
+            public Decimal Amount { get; set; }
+            public Decimal AvailableBalance { get; set; }
+            public string TranscationSource { get; set; }
+            public string TranscationDetail { get; set; }
+            public string PartnerLoginId { get; set; }
+            public string PartnerEmailId { get; set; }
+            public string PartnerMobileNo { get; set; }
+            public string Ldate { get; set; }
+            public string LTime { get; set; }
+            public string flag { get; set; }
+            public string Message { get; set; }
         }
         public class TranscationReturn
         {
@@ -37,9 +59,10 @@ namespace BAL
             public string Message { get; set; }
             public string TranscationId { get; set; }
             public Decimal AvailableBalance { get; set; }
-            
+
         }
-        public class registrationReturn {
+        public class registrationReturn
+        {
             public string flag { get; set; }
             public string Message { get; set; }
             public string OTPId { get; set; }
@@ -57,4 +80,6 @@ namespace BAL
             public string UserName { get; set; }
         }
     }
+
+
 }
