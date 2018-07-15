@@ -97,5 +97,12 @@ namespace FortestingAPI.Controllers
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
+        [HttpPost]
+        public object GetNotificaation(JsonMember.TranscationManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.GetNotificaation(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
     }
 }

@@ -477,6 +477,55 @@ namespace BAL
             return obj1;
         }
 
+        public object GetNotificaation(JsonMember.TranscationManagement obj)
+        {
+            NotificationManagement obj1 = new NotificationManagement();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(1);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetNotificaation");
+                obj1 = new NotificationManagement()
+                {
+                    flag = "true",
+                    Message = "success",
+                    AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"].ToString()),
+                    NotificationCount = Convert.ToInt64(idr["NotificationCount"].ToString())
+                };
+                if (idr.NextResult())
+                {
+                    while (idr.Read())
+                    {
+                        obj1.lstNotificationManagementDetails.Add(new JsonMember.NotificationManagementDetails()
+                        {
+                            TranscationId = Convert.ToString(idr["TranscationId"]),
+                            ShortMsg = Convert.ToString(idr["ShortMsg"]),
+                            MsgDescription = Convert.ToString(idr["MsgDescription"]),
+                            LdateTime= Convert.ToString(idr["LdateTime"]),
+                        });
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Get Available Balance", Ex.Message.ToString(), "SP Name: USP_GetNotificaation");
+                obj1 = new NotificationManagement()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    AvailableBalance = 0,
+                    NotificationCount = 0
+                };
+            }
+            finally
+            {
+                idr.Close();
+                Sqldbmanager.Close();
+            }
+            return obj1;
+        }
+
         public object GetTranscationDetails(JsonMember.TranscationManagement obj)
         {
             List<JsonMember.TranscationDetails> lstTranscationDetails = new List<JsonMember.TranscationDetails>();
@@ -487,27 +536,31 @@ namespace BAL
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
                 Sqldbmanager.AddParameters(1, "@for", obj.TranscationSource);
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetTranscationDetails");
-                lstTranscationDetails.Add(new JsonMember.TranscationDetails()
+                while (idr.Read())
                 {
-                    flag = "true",
-                    Message = "success",
-                    UserId =Convert.ToInt64(idr["UserId"]),
-                    TranscationSourceId = Convert.ToInt64(idr["TranscationSourceId"]),
-                    PartnerUserId = Convert.ToInt64(idr["PartnerUserId"]),
-                    UserLoginId = Convert.ToString(idr["UserLoginId"]),
-                    EmailId = Convert.ToString(idr["EmailId"]),
-                    MobileNo = Convert.ToString(idr["MobileNo"]),
-                    TranscationId = Convert.ToString(idr["TranscationId"]),
-                    Amount = Convert.ToDecimal(idr["Amount"]),
-                    AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"]),
-                    TranscationSource = Convert.ToString(idr["TranscationSource"]),
-                    TranscationDetail = Convert.ToString(idr["TranscationDetail"]),
-                    PartnerLoginId = Convert.ToString(idr["PartnerLoginId"]),
-                    PartnerEmailId = Convert.ToString(idr["PartnerEmailId"]),
-                    PartnerMobileNo = Convert.ToString(idr["PartnerMobileNo"]),
-                    Ldate = Convert.ToString(idr["Ldate"]),
-                    LTime = Convert.ToString(idr["LTime"]),
-                });
+                    lstTranscationDetails.Add(new JsonMember.TranscationDetails()
+                    {
+                        flag = "true",
+                        Message = "success",
+                        UserId = Convert.ToInt64(idr["UserId"]),
+                        TranscationSourceId = Convert.ToInt64(idr["TranscationSourceId"]),
+                        PartnerUserId = Convert.ToInt64(idr["PartnerUserId"]),
+                        UserLoginId = Convert.ToString(idr["UserLoginId"]),
+                        EmailId = Convert.ToString(idr["EmailId"]),
+                        MobileNo = Convert.ToString(idr["MobileNo"]),
+                        TranscationId = Convert.ToString(idr["TranscationId"]),
+                        Amount = Convert.ToDecimal(idr["Amount"]),
+                        AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"]),
+                        TranscationSource = Convert.ToString(idr["TranscationSource"]),
+                        TranscationDetail = Convert.ToString(idr["TranscationDetail"]),
+                        PartnerLoginId = Convert.ToString(idr["PartnerLoginId"]),
+                        PartnerEmailId = Convert.ToString(idr["PartnerEmailId"]),
+                        PartnerMobileNo = Convert.ToString(idr["PartnerMobileNo"]),
+                        Ldate = Convert.ToString(idr["Ldate"]),
+                        LTime = Convert.ToString(idr["LTime"]),
+                    });
+                }
+                
             }
             catch (Exception Ex)
             {

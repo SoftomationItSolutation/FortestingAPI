@@ -32,6 +32,7 @@ namespace BAL
             public Decimal Amount { get; set; }
             public List<TranscationDetails> lstTranscationDetails;
         }
+      
         public class TranscationDetails
         {
             public Int64 UserId { get; set; }
@@ -78,6 +79,22 @@ namespace BAL
             public string MobileNo { get; set; }
             public string UserId { get; set; }
             public string UserName { get; set; }
+        }
+
+        public class NotificationManagement
+        {
+            public Int64 NotificationCount { get; set; }
+            public Decimal AvailableBalance { get; set; }
+            public string flag { get; set; }
+            public string Message { get; set; }
+            public List<NotificationManagementDetails> lstNotificationManagementDetails;
+        }
+        public class NotificationManagementDetails
+        {
+            public string TranscationId { get; set; }
+            public string ShortMsg { get; set; }
+            public string MsgDescription { get; set; }
+            public string LdateTime { get; set; }
         }
     }
 
