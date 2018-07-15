@@ -539,7 +539,7 @@ namespace BAL
             try
             {
                 Sqldbmanager.Open();
-                Sqldbmanager.CreateParameters(1);
+                Sqldbmanager.CreateParameters(2);
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
                 Sqldbmanager.AddParameters(1, "@for", obj.TranscationSource);
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetTranscationDetails");
