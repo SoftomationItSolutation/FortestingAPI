@@ -477,7 +477,7 @@ namespace BAL
             return obj1;
         }
 
-        public object GetNotificaation(JsonMember.TranscationManagement obj)
+        public object GetNotification(JsonMember.TranscationManagement obj)
         {
             NotificationManagement obj1 = new NotificationManagement();
             try
@@ -485,31 +485,38 @@ namespace BAL
                 Sqldbmanager.Open();
                 Sqldbmanager.CreateParameters(1);
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
-                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetNotificaation");
-                obj1 = new NotificationManagement()
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetNotification");
+                List<JsonMember.NotificationManagementDetails> lstDetails = new List<JsonMember.NotificationManagementDetails>();
+                while (idr.Read())
                 {
-                    flag = "true",
-                    Message = "success",
-                    AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"].ToString()),
-                    NotificationCount = Convert.ToInt64(idr["NotificationCount"].ToString())
-                };
+                    lstDetails.Add(new JsonMember.NotificationManagementDetails()
+                    {
+                        TranscationId = Convert.ToString(idr["TranscationId"]),
+                        ShortMsg = Convert.ToString(idr["ShortMsg"]),
+                        MsgDescription = Convert.ToString(idr["MsgDescription"]),
+                        LdateTime = Convert.ToString(idr["LdateTime"]),
+                    });
+                }
                 if (idr.NextResult())
                 {
                     while (idr.Read())
                     {
-                        obj1.lstNotificationManagementDetails.Add(new JsonMember.NotificationManagementDetails()
+                        obj1 = new NotificationManagement()
                         {
-                            TranscationId = Convert.ToString(idr["TranscationId"]),
-                            ShortMsg = Convert.ToString(idr["ShortMsg"]),
-                            MsgDescription = Convert.ToString(idr["MsgDescription"]),
-                            LdateTime= Convert.ToString(idr["LdateTime"]),
-                        });
+                            flag = "true",
+                            Message = "success",
+                            AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"].ToString()),
+                            NotificationCount = Convert.ToInt64(idr["NotificationCount"].ToString()),
+                            lstNotificationManagementDetails = lstDetails
+                        };
                     }
                 }
+
+
             }
             catch (Exception Ex)
             {
-                DS = LogError("Get Available Balance", Ex.Message.ToString(), "SP Name: USP_GetNotificaation");
+                DS = LogError("Get Notification", Ex.Message.ToString(), "SP Name: USP_GetNotification");
                 obj1 = new NotificationManagement()
                 {
                     flag = "false",
@@ -552,7 +559,7 @@ namespace BAL
                         Amount = Convert.ToDecimal(idr["Amount"]),
                         AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"]),
                         TranscationSource = Convert.ToString(idr["TranscationSource"]),
-                        TranscationDetail = Convert.ToString(idr["TranscationDetail"]),
+                        TranscationDetail = Convert.ToString(idr["TranscationDetails"]),
                         PartnerLoginId = Convert.ToString(idr["PartnerLoginId"]),
                         PartnerEmailId = Convert.ToString(idr["PartnerEmailId"]),
                         PartnerMobileNo = Convert.ToString(idr["PartnerMobileNo"]),

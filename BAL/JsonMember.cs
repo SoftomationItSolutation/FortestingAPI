@@ -23,6 +23,7 @@ namespace BAL
             public string Status { get; set; }
             public string LoginId { get; set; }
         }
+
         public class TranscationManagement
         {
             public Int64 UserId { get; set; }
@@ -54,14 +55,15 @@ namespace BAL
             public string flag { get; set; }
             public string Message { get; set; }
         }
+
         public class TranscationReturn
         {
             public string flag { get; set; }
             public string Message { get; set; }
             public string TranscationId { get; set; }
             public Decimal AvailableBalance { get; set; }
-
         }
+
         public class registrationReturn
         {
             public string flag { get; set; }
@@ -70,6 +72,7 @@ namespace BAL
             public string OTP { get; set; }
             public string UserId { get; set; }
         }
+
         public class LoginReturn
         {
             public string flag { get; set; }
@@ -89,6 +92,7 @@ namespace BAL
             public string Message { get; set; }
             public List<NotificationManagementDetails> lstNotificationManagementDetails;
         }
+
         public class NotificationManagementDetails
         {
             public string TranscationId { get; set; }
