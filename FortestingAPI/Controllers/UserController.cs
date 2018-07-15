@@ -89,5 +89,13 @@ namespace FortestingAPI.Controllers
             string Det = JsonConvert.SerializeObject(UserMaster.GetAvailableBalance(obj), Formatting.Indented);
             return Det.Replace("\r", "").Replace("\n", "");
         }
+
+        [HttpPost]
+        public object GetTranscationDetails(JsonMember.TranscationManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.GetTranscationDetails(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
     }
 }
