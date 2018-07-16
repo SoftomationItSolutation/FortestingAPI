@@ -104,5 +104,19 @@ namespace FortestingAPI.Controllers
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
+        [HttpPost]
+        public object RewardManagementInsertUpdate(JsonMember.RewardManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.RewardManagementInsertUpdate(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
+        [HttpPost]
+        public object GetRewardManagement(JsonMember.RewardManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.GetRewardManagement(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
     }
 }

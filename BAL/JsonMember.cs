@@ -100,6 +100,25 @@ namespace BAL
             public string MsgDescription { get; set; }
             public string LdateTime { get; set; }
         }
+
+        public class RewardManagement {
+            public Int64 RewardId { get; set; }
+            public Int64 ValidDay { get; set; }
+            public Int64 UserId { get; set; }
+            public Decimal RewardAmount { get; set; }
+            public string flag { get; set; }
+            public string Message { get; set; }
+            public List<RewardManagementDetails> lstRewardManagementDetails;
+        }
+        public class RewardManagementDetails
+        {
+            public Int64 RewardId { get; set; }
+            public Decimal RewardAmount { get; set; }
+            public string RewardCode { get; set; }
+            public string ValidFrom { get; set; }
+            public string ValidTill { get; set; }
+        }
+
     }
 
 

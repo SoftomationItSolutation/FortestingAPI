@@ -589,5 +589,117 @@ namespace BAL
 
             return lstTranscationDetails;
         }
+
+        public object RewardManagementInsertUpdate(JsonMember.RewardManagement obj)
+        {
+            RewardManagement obj1 = new RewardManagement();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(4);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                Sqldbmanager.AddParameters(1, "@RewardAmount", obj.RewardAmount);
+                Sqldbmanager.AddParameters(2, "@ValidDay", obj.ValidDay);
+                Sqldbmanager.AddParameters(3, "@RewardId", obj.RewardId);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_RewardManagement");
+                List<JsonMember.RewardManagementDetails> lstDetails = new List<JsonMember.RewardManagementDetails>();
+                while (idr.Read())
+                {
+                    lstDetails.Add(new JsonMember.RewardManagementDetails()
+                    {
+                        RewardCode = Convert.ToString(idr["RewardCode"]),
+                        ValidFrom = Convert.ToString(idr["ValidFrom"]),
+                        ValidTill = Convert.ToString(idr["ValidTill"]),
+                        RewardAmount = Convert.ToDecimal(idr["RewardAmount"]),
+                    });
+                }
+                if (idr.NextResult())
+                {
+                    while (idr.Read())
+                    {
+                        obj1 = new RewardManagement()
+                        {
+                            flag = "true",
+                            Message = "success",
+                            lstRewardManagementDetails = lstDetails
+                        };
+                    }
+                }
+                obj1 = new RewardManagement()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                };
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Reward Management Insert Update", Ex.Message.ToString(), "SP Name: USP_RewardManagement");
+                obj1 = new RewardManagement()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+
+            return obj1;
+        }
+
+        public object GetRewardManagement(JsonMember.RewardManagement obj)
+        {
+            RewardManagement obj1 = new RewardManagement();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(0);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetRewardManagement");
+                List<JsonMember.RewardManagementDetails> lstDetails = new List<JsonMember.RewardManagementDetails>();
+                while (idr.Read())
+                {
+                    lstDetails.Add(new JsonMember.RewardManagementDetails()
+                    {
+                        RewardCode = Convert.ToString(idr["RewardCode"]),
+                        ValidFrom = Convert.ToString(idr["ValidFrom"]),
+                        ValidTill = Convert.ToString(idr["ValidTill"]),
+                        RewardAmount = Convert.ToDecimal(idr["RewardAmount"]),
+                    });
+                }
+                if (idr.NextResult())
+                {
+                    while (idr.Read())
+                    {
+                        obj1 = new RewardManagement()
+                        {
+                            flag = "true",
+                            Message = "success",
+                            lstRewardManagementDetails = lstDetails
+                        };
+                    }
+                }
+                obj1 = new RewardManagement()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                };
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Get Reward Management", Ex.Message.ToString(), "SP Name: USP_GetRewardManagement");
+                obj1 = new RewardManagement()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+
+            return obj1;
+        }
     }
 }
