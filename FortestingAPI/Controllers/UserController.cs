@@ -125,5 +125,12 @@ namespace FortestingAPI.Controllers
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
+        [HttpPost]
+        public object RequestMoney(JsonMember.RequestMoney obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.RequestMoney(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+        
     }
 }

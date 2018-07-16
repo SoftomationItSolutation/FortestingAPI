@@ -735,5 +735,43 @@ namespace BAL
             return obj1;
         }
 
+        public object RequestMoney(JsonMember.RequestMoney obj)
+        {
+            RequestMoney obj1 = new RequestMoney();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(3);
+                Sqldbmanager.AddParameters(0, "@RequesterId", obj.RequesterId);
+                Sqldbmanager.AddParameters(1, "@RequestToId", obj.RequestToId);
+                Sqldbmanager.AddParameters(2, "@Amount", obj.Amount);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_RequestMoney");
+                while (idr.Read())
+                {
+                    obj1 = new RequestMoney()
+                    {
+                        flag = (Convert.ToBoolean(idr["flag"])).ToString(),
+                        Message = Convert.ToString(idr["Message"])
+                    };
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Request Money", Ex.Message.ToString(), "SP Name: USP_RequestMoney");
+                obj1 = new RequestMoney()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString()
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+
+            return obj1;
+        }
+
     }
 }

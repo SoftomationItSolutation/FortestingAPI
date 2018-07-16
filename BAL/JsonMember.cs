@@ -114,6 +114,7 @@ namespace BAL
             public string RewardCode { get; set; }
             public List<RewardManagementDetails> lstRewardManagementDetails;
         }
+
         public class RewardManagementDetails
         {
             public Int64 RewardId { get; set; }
@@ -121,6 +122,15 @@ namespace BAL
             public string RewardCode { get; set; }
             public string ValidFrom { get; set; }
             public string ValidTill { get; set; }
+        }
+
+        public class RequestMoney
+        {
+            public Int64 RequesterId { get; set; }
+            public Int64 RequestToId { get; set; }
+            public decimal Amount { get; set; }
+            public string flag { get; set; }
+            public string Message { get; set; }
         }
 
     }
