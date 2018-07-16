@@ -625,11 +625,7 @@ namespace BAL
                         };
                     }
                 }
-                obj1 = new RewardManagement()
-                {
-                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                };
+               
             }
             catch (Exception Ex)
             {
@@ -679,11 +675,6 @@ namespace BAL
                         };
                     }
                 }
-                obj1 = new RewardManagement()
-                {
-                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
-                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                };
             }
             catch (Exception Ex)
             {
