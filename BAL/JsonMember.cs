@@ -65,6 +65,7 @@ namespace BAL
             public string Message { get; set; }
             public string TranscationId { get; set; }
             public Decimal AvailableBalance { get; set; }
+            public Decimal RewardBalance { get; set; }
         }
 
         public class registrationReturn

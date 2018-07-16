@@ -456,7 +456,8 @@ namespace BAL
                     flag = "true",
                     Message = "success",
                     TranscationId = "",
-                    AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString())
+                    AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString()),
+                    RewardBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["RewardBalance"].ToString()),
                 };
             }
             catch (Exception Ex)
