@@ -29,6 +29,9 @@ namespace BAL
             public Int64 UserId { get; set; }
             public Int64 PatnerUserId { get; set; }
             public Int64 TranscationSourceId { get; set; }
+            public Int64 RequestId { get; set; }
+            public Int64 RewardId { get; set; }
+            public String MsgDescription { get; set; }
             public String TranscationSource { get; set; }
             public Decimal Amount { get; set; }
             public List<TranscationDetails> lstTranscationDetails;
@@ -108,6 +111,7 @@ namespace BAL
             public Decimal RewardAmount { get; set; }
             public string flag { get; set; }
             public string Message { get; set; }
+            public string RewardCode { get; set; }
             public List<RewardManagementDetails> lstRewardManagementDetails;
         }
         public class RewardManagementDetails

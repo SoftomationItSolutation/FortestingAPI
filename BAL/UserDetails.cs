@@ -407,11 +407,14 @@ namespace BAL
             try
             {
                 Sqldbmanager.Open();
-                Sqldbmanager.CreateParameters(4);
+                Sqldbmanager.CreateParameters(7);
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
                 Sqldbmanager.AddParameters(1, "@TranscationSourceId", obj.TranscationSourceId);
                 Sqldbmanager.AddParameters(2, "@Amount", obj.Amount);
                 Sqldbmanager.AddParameters(3, "@PartnerUserId", obj.PatnerUserId);
+                Sqldbmanager.AddParameters(4, "@MsgDescription", obj.MsgDescription);
+                Sqldbmanager.AddParameters(5, "@RequestId", obj.RequestId);
+                Sqldbmanager.AddParameters(6, "@RewardId", obj.RewardId);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_TranscationManagement");
                 obj1 = new TranscationReturn()
                 {
@@ -692,5 +695,45 @@ namespace BAL
 
             return obj1;
         }
+
+        public object ValidateRewardCode(JsonMember.RewardManagement obj)
+        {
+            RewardManagement obj1 = new RewardManagement();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(2);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                Sqldbmanager.AddParameters(1, "@PromoCode", obj.RewardCode);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_ValidatePromoCode");
+                while (idr.Read())
+                {
+                    obj1 = new RewardManagement()
+                    {
+                        flag = (Convert.ToBoolean(idr["flag"])).ToString(),
+                        Message = Convert.ToString(idr["Message"]),
+                        RewardId = Convert.ToInt64(idr["RewardId"]),
+                        RewardAmount = Convert.ToDecimal(idr["RewardAmount"]),
+                    };
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Validate Promo Code", Ex.Message.ToString(), "SP Name: USP_ValidatePromoCode");
+                obj1 = new RewardManagement()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+
+            return obj1;
+        }
+
     }
 }

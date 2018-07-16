@@ -118,5 +118,12 @@ namespace FortestingAPI.Controllers
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
+        [HttpPost]
+        public object ValidateRewardCode(JsonMember.RewardManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.ValidateRewardCode(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
     }
 }
