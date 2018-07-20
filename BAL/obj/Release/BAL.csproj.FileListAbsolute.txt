@@ -12,3 +12,11 @@ D:\Projects\MyApi\FortestingAPI\BAL\bin\BAL.dll
 D:\Projects\MyApi\FortestingAPI\BAL\bin\BAL.pdb
 D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.dll
 D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.pdb
+D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.csproj.CoreCompileInputs.cache
+D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.csproj.CopyComplete
+D:\Projects\MyApi\FortestingAPI\BAL\bin\JWT.dll
+D:\Projects\MyApi\FortestingAPI\BAL\bin\Newtonsoft.Json.dll
+D:\Projects\MyApi\FortestingAPI\BAL\bin\Twilio.dll
+D:\Projects\MyApi\FortestingAPI\BAL\bin\Newtonsoft.Json.xml
+D:\Projects\MyApi\FortestingAPI\BAL\bin\Twilio.xml
+D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.csprojAssemblyReference.cache

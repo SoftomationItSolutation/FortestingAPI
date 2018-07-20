@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Web;
+
 using static BAL.JsonMember;
 
 namespace BAL
@@ -221,9 +222,7 @@ namespace BAL
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_ResendOTP");
                 if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
                 {
-                    objEMail.SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["MobileNo"].ToString() + " is your flipprr verification code.");
-                    //Thread thrdMail = new Thread(() => MailResult = (new Email()).sendMail(obj.EmailId, "", "Flipprr Verification Code", DS.Tables[0].Rows[0]["OTP"].ToString(), ""));
-                    //thrdMail.Start();
+                    objEMail.SendSMSbyTillio(DS.Tables[0].Rows[0]["MobileNo"].ToString(), "Flipprr Verification Code " + DS.Tables[0].Rows[0]["OTP"].ToString());
 
                 }
                 obj1 = new registrationReturn()
@@ -266,12 +265,8 @@ namespace BAL
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "usp_ForgetPassword");
                 if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
                 {
-                    objEMail.SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["MobileNo"].ToString() + " is your flipprr verification code.");
-                    //Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
-                    //thrdSms.Start();
-
-                    //Thread thrdMail = new Thread(() => MailResult = (new Email()).sendMail(obj.EmailId, "", "Flipprr Verification Code", DS.Tables[0].Rows[0]["OTP"].ToString(), ""));
-                    //thrdMail.Start();
+                    //objEMail.SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["MobileNo"].ToString() + " is your flipprr verification code.");
+                    objEMail.SendSMSbyTillio(DS.Tables[0].Rows[0]["MobileNo"].ToString(), "Flipprr Verification Code " + DS.Tables[0].Rows[0]["OTP"].ToString());
 
                 }
                 obj1 = new registrationReturn()
@@ -774,5 +769,6 @@ namespace BAL
             return obj1;
         }
 
+       
     }
 }

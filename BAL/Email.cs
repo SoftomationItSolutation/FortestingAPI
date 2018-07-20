@@ -7,12 +7,15 @@ using System.Net.Mail;
 using System.Web;
 using System.Net;
 using System.Text;
+using Twilio;
+using Twilio.Types;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace BAL
 {
     public class Email
     {
-        public bool sendMail(string reciver, string senderName, string subject, string OTP,string StationCode)
+        public bool sendMail(string reciver, string senderName, string subject, string OTP, string StationCode)
         {
             bool result = false;
             string mailBody = "";
@@ -89,6 +92,40 @@ namespace BAL
             int ResultCode = System.Convert.ToInt32(Result.Substring(0, 4));
 
             return true;
+        }
+
+        public bool SendSMSbyTillio(String Recipient, String Message)
+        {
+            bool result = false;
+            var accountSid = ConfigurationManager.AppSettings["AccountID"];
+            var AUTH_TOKEN = ConfigurationManager.AppSettings["AUTH_TOKEN"];
+            TwilioClient.Init(accountSid, AUTH_TOKEN);
+            var to = new PhoneNumber(Recipient);
+            var from = new PhoneNumber(ConfigurationManager.AppSettings["sender"]);
+
+            if (!string.IsNullOrEmpty(Recipient))
+            {
+                if (Recipient.Length == 10)
+                {
+                    Recipient = "+91" + Recipient;
+                }
+                else if (!Recipient.Contains("+"))
+                {
+                    Recipient = "+" + Recipient;
+                }
+                try
+                {
+                    var message = MessageResource.Create(to: Recipient, from: from, body: Message);
+                    result = true;
+                }
+                catch (Twilio.Exceptions.ApiException respons)
+                {
+
+                    result= false;
+                    //respons.Message;
+                }
+            }
+            return result;
         }
     }
 }

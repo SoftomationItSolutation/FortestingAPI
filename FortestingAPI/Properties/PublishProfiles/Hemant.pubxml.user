@@ -75,8 +75,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>06/28/2018 13:11:44</publishTime>
     </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>06/28/2018 13:11:44</publishTime>
+    </File>
     <File Include="bin/BAL.dll">
-      <publishTime>07/16/2018 21:33:37</publishTime>
+      <publishTime>07/20/2018 02:50:57</publishTime>
+    </File>
+    <File Include="bin/BAL.pdb">
+      <publishTime>07/20/2018 02:50:57</publishTime>
     </File>
     <File Include="bin/DAL.dll">
       <publishTime>06/15/2018 12:04:32</publishTime>
@@ -88,7 +94,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:44</publishTime>
     </File>
     <File Include="bin/FortestingAPI.dll">
-      <publishTime>07/16/2018 21:34:09</publishTime>
+      <publishTime>07/20/2018 02:51:02</publishTime>
+    </File>
+    <File Include="bin/FortestingAPI.pdb">
+      <publishTime>07/20/2018 02:51:02</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>06/28/2018 13:11:48</publishTime>
@@ -190,22 +199,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:32</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
-      <publishTime>01/07/2018 11:56:45</publishTime>
+      <publishTime>07/01/2018 11:56:45</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.svg">
-      <publishTime>01/07/2018 11:56:45</publishTime>
+      <publishTime>07/01/2018 11:56:45</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>01/07/2018 11:56:45</publishTime>
+      <publishTime>07/01/2018 11:56:45</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff">
-      <publishTime>01/07/2018 11:56:45</publishTime>
+      <publishTime>07/01/2018 11:56:45</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>01/07/2018 11:56:45</publishTime>
+      <publishTime>07/01/2018 11:56:45</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regulard41d.eot">
-      <publishTime>01/07/2018 11:56:45</publishTime>
+      <publishTime>07/01/2018 11:56:45</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>06/28/2018 13:11:32</publishTime>
@@ -253,16 +262,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:44</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/07/2018 12:04:24</publishTime>
+      <publishTime>07/01/2018 12:04:24</publishTime>
     </File>
     <File Include="Views/OTPMail.html">
-      <publishTime>01/07/2018 11:08:35</publishTime>
+      <publishTime>07/01/2018 11:08:35</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>06/28/2018 13:11:32</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>01/07/2018 12:04:14</publishTime>
+      <publishTime>07/01/2018 12:04:14</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>06/28/2018 13:11:32</publishTime>
@@ -271,7 +280,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:32</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/05/2018 21:35:07</publishTime>
+      <publishTime>07/20/2018 02:51:59</publishTime>
     </File>
   </ItemGroup>
 </Project>

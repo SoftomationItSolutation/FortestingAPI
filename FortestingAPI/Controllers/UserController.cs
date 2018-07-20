@@ -13,6 +13,8 @@ using System.Web;
 using System.IO;
 //using System.Web.Script.Serialization;
 using System.Threading.Tasks;
+
+
 namespace FortestingAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -131,6 +133,8 @@ namespace FortestingAPI.Controllers
             string Det = JsonConvert.SerializeObject(UserMaster.RequestMoney(obj), Formatting.Indented);
             return Det.Replace("\r", "").Replace("\n", "");
         }
+
+       
         
     }
 }
