@@ -114,10 +114,12 @@ namespace BAL
         public class MoneyRequestNotificationDetails
         {
             public Int64 RequestId { get; set; }
+            public Int64 PartnerId { get; set; }
             public Decimal Amount { get; set; }
             public string MobileNo { get; set; }
             public string UserName { get; set; }
-            public string LdateTime { get; set; }
+            public string Ldate { get; set; }
+            public string LTime { get; set; }
         }
 
         public class RewardManagement {
@@ -142,6 +144,7 @@ namespace BAL
 
         public class RequestMoney
         {
+            public Int64 RequestId { get; set; }
             public Int64 RequesterId { get; set; }
             public Int64 RequestToId { get; set; }
             public decimal Amount { get; set; }

@@ -509,14 +509,19 @@ namespace BAL
                 }
                 if (idr.NextResult())
                 {
-                    lstMoneyDetails.Add(new JsonMember.MoneyRequestNotificationDetails()
+                    while (idr.Read())
                     {
-                        RequestId = Convert.ToInt64(idr["RequestId"]),
-                        Amount = Convert.ToDecimal(idr["Amount"]),
-                        LdateTime = Convert.ToString(idr["LdateTime"]),
-                        UserName = Convert.ToString(idr["UserName"]),
-                        MobileNo = Convert.ToString(idr["MobileNo"]),
-                    });
+                        lstMoneyDetails.Add(new JsonMember.MoneyRequestNotificationDetails()
+                        {
+                            RequestId = Convert.ToInt64(idr["RequestId"]),
+                            Amount = Convert.ToDecimal(idr["Amount"]),
+                            Ldate = Convert.ToString(idr["Ldate"]),
+                            LTime = Convert.ToString(idr["LTime"]),
+                            UserName = Convert.ToString(idr["UserName"]),
+                            MobileNo = Convert.ToString(idr["MobileNo"]),
+                            PartnerId = Convert.ToInt64(idr["RequestToId"])
+                        });
+                    }
                 }
                 if (idr.NextResult())
                 {
@@ -762,10 +767,11 @@ namespace BAL
             try
             {
                 Sqldbmanager.Open();
-                Sqldbmanager.CreateParameters(3);
-                Sqldbmanager.AddParameters(0, "@RequesterId", obj.RequesterId);
-                Sqldbmanager.AddParameters(1, "@RequestToId", obj.RequestToId);
-                Sqldbmanager.AddParameters(2, "@Amount", obj.Amount);
+                Sqldbmanager.CreateParameters(4);
+                Sqldbmanager.AddParameters(0, "@RequestId", obj.RequestId);
+                Sqldbmanager.AddParameters(1, "@RequesterId", obj.RequesterId);
+                Sqldbmanager.AddParameters(2, "@RequestToId", obj.RequestToId);
+                Sqldbmanager.AddParameters(3, "@Amount", obj.Amount);
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_RequestMoney");
                 while (idr.Read())
                 {
