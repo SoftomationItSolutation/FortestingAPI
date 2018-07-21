@@ -98,7 +98,7 @@ namespace BAL
         {
             bool result = false;
             var accountSid = ConfigurationManager.AppSettings["AccountID"];
-            var AUTH_TOKEN = ConfigurationManager.AppSettings["AUTH_TOKEN"];
+            var AUTH_TOKEN = ConfigurationManager.AppSettings["TOKEN"];
             TwilioClient.Init(accountSid, AUTH_TOKEN);
             var to = new PhoneNumber(Recipient);
             var from = new PhoneNumber(ConfigurationManager.AppSettings["sender"]);

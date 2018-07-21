@@ -66,6 +66,11 @@ namespace BAL
             public string TranscationId { get; set; }
             public Decimal AvailableBalance { get; set; }
             public Decimal RewardBalance { get; set; }
+            public Decimal transferMoney { get; set; }
+            public Decimal reciverMoney { get; set; }
+            public Decimal lastmonth { get; set; }
+            public Decimal lastmonthCredit { get; set; }
+            public Decimal lastmonthDebit { get; set; }
         }
 
         public class registrationReturn
@@ -91,10 +96,12 @@ namespace BAL
         public class NotificationManagement
         {
             public Int64 NotificationCount { get; set; }
+            public Int64 RequestMoneyNotificationCount { get; set; }
             public Decimal AvailableBalance { get; set; }
             public string flag { get; set; }
             public string Message { get; set; }
             public List<NotificationManagementDetails> lstNotificationManagementDetails;
+            public List<MoneyRequestNotificationDetails> lstMoneyRequestNotificationDetails;
         }
 
         public class NotificationManagementDetails
@@ -102,6 +109,14 @@ namespace BAL
             public string TranscationId { get; set; }
             public string ShortMsg { get; set; }
             public string MsgDescription { get; set; }
+            public string LdateTime { get; set; }
+        }
+        public class MoneyRequestNotificationDetails
+        {
+            public Int64 RequestId { get; set; }
+            public Decimal Amount { get; set; }
+            public string MobileNo { get; set; }
+            public string UserName { get; set; }
             public string LdateTime { get; set; }
         }
 

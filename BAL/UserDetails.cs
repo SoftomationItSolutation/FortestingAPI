@@ -20,7 +20,7 @@ namespace BAL
         DataSet DS = new DataSet();
         DataTable dt = new DataTable();
         Email objEMail = new Email();
-        bool SmsResult = false;
+        
         IDataReader idr;
 
         public DataSet LogError(string ModuleName, string ErrorSource, string Description)
@@ -135,7 +135,7 @@ namespace BAL
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GenerateUser");
                 if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
                 {
-                    objEMail.SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code.");
+                    objEMail.SendSMSbyTillio(obj.MobileNo, "Flipprr Verification Code " + DS.Tables[0].Rows[0]["OTP"].ToString());
                     //Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
                     //thrdSms.Start();
 
@@ -453,6 +453,11 @@ namespace BAL
                     TranscationId = "",
                     AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString()),
                     RewardBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["RewardBalance"].ToString()),
+                    transferMoney = Convert.ToDecimal(DS.Tables[0].Rows[0]["transferMoney"].ToString()),
+                    reciverMoney = Convert.ToDecimal(DS.Tables[0].Rows[0]["reciverMoney"].ToString()),
+                    lastmonth = Convert.ToDecimal(DS.Tables[0].Rows[0]["lastmonth"].ToString()),
+                    lastmonthCredit = Convert.ToDecimal(DS.Tables[0].Rows[0]["lastmonthCredit"].ToString()),
+                    lastmonthDebit = Convert.ToDecimal(DS.Tables[0].Rows[0]["lastmonthCredit"].ToString()),
                 };
             }
             catch (Exception Ex)
@@ -463,7 +468,12 @@ namespace BAL
                     flag = "false",
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
                     TranscationId = "",
-                    AvailableBalance = 0
+                    AvailableBalance = 0,
+                    transferMoney=0,
+                    reciverMoney=0,
+                    lastmonth=0,
+                    lastmonthCredit=0,
+                    lastmonthDebit=0
                 };
             }
             finally
@@ -486,6 +496,7 @@ namespace BAL
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetNotification");
                 List<JsonMember.NotificationManagementDetails> lstDetails = new List<JsonMember.NotificationManagementDetails>();
+                List<JsonMember.MoneyRequestNotificationDetails> lstMoneyDetails = new List<JsonMember.MoneyRequestNotificationDetails>();
                 while (idr.Read())
                 {
                     lstDetails.Add(new JsonMember.NotificationManagementDetails()
@@ -498,6 +509,17 @@ namespace BAL
                 }
                 if (idr.NextResult())
                 {
+                    lstMoneyDetails.Add(new JsonMember.MoneyRequestNotificationDetails()
+                    {
+                        RequestId = Convert.ToInt64(idr["RequestId"]),
+                        Amount = Convert.ToDecimal(idr["Amount"]),
+                        LdateTime = Convert.ToString(idr["LdateTime"]),
+                        UserName = Convert.ToString(idr["UserName"]),
+                        MobileNo = Convert.ToString(idr["MobileNo"]),
+                    });
+                }
+                if (idr.NextResult())
+                {
                     while (idr.Read())
                     {
                         obj1 = new NotificationManagement()
@@ -506,7 +528,9 @@ namespace BAL
                             Message = "success",
                             AvailableBalance = Convert.ToDecimal(idr["AvailableBalance"].ToString()),
                             NotificationCount = Convert.ToInt64(idr["NotificationCount"].ToString()),
-                            lstNotificationManagementDetails = lstDetails
+                            RequestMoneyNotificationCount = Convert.ToInt64(idr["RequestMoneyNotificationCount"].ToString()),
+                            lstNotificationManagementDetails = lstDetails,
+                            lstMoneyRequestNotificationDetails=lstMoneyDetails
                         };
                     }
                 }
@@ -521,7 +545,8 @@ namespace BAL
                     flag = "false",
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
                     AvailableBalance = 0,
-                    NotificationCount = 0
+                    NotificationCount = 0,
+                    RequestMoneyNotificationCount=0
                 };
             }
             finally
