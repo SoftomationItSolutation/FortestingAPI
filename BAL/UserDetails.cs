@@ -396,60 +396,63 @@ namespace BAL
             return Lobj;
         }
 
-        public object GetAllProfileDetails()
+        public object GetAllProfileDetails(JsonMember.UserDetails obj)
         {
-            LoginReturn Lobj = new LoginReturn();
-
+            
+            List<JsonMember.LoginReturn> lstDetails = new List<JsonMember.LoginReturn>();
             try
             {
                 Sqldbmanager.Open();
-                Sqldbmanager.CreateParameters(0);
-                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GetCompletePoflieDetails");
-                if (DS.Tables[1].Rows.Count > 0)
-                {
-                    Lobj = new LoginReturn()
+                Sqldbmanager.CreateParameters(1);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetCompletePoflieDetails");
+                if (idr.Read()) {
+                    while (idr.Read())
                     {
-                        flag = "true",
-                        Message = "Success",
-                        EmailId = DS.Tables[1].Rows[0]["EmailId"].ToString(),
-                        MobileNo = DS.Tables[1].Rows[0]["MobileNo"].ToString(),
-                        Name = DS.Tables[1].Rows[0]["Name"].ToString(),
-                        UserName = DS.Tables[1].Rows[0]["UserName"].ToString(),
-                        UserId = DS.Tables[1].Rows[0]["UserId"].ToString()
-                    };
+                        lstDetails.Add(new JsonMember.LoginReturn()
+                        {
+                            flag = "true",
+                            Message = "Success",
+                            EmailId = Convert.ToString(idr["EmailId"]),
+                            MobileNo = Convert.ToString(idr["MobileNo"]),
+                            Name = Convert.ToString(idr["Name"]),
+                            UserName = Convert.ToString(idr["UserName"]),
+                            UserId = Convert.ToString(idr["UserId"])
+                        });
+                    }
                 }
                 else
                 {
-                    Lobj = new LoginReturn()
+                    lstDetails.Add(new JsonMember.LoginReturn()
                     {
                         flag = "false",
-                        Message = "Invalid Email/Mobile",
+                        Message = "No User Found",
                         EmailId = "",
                         MobileNo = "",
                         Name = "",
                         UserId = ""
-                    };
+                    });
 
                 }
             }
             catch (Exception Ex)
             {
-                Lobj = new LoginReturn()
+                lstDetails.Add(new JsonMember.LoginReturn()
                 {
                     flag = "false",
-                    Message = "Invalid Email/Mobile",
+                    Message = Ex.Message.ToString(),
                     EmailId = "",
                     MobileNo = "",
                     Name = "",
                     UserId = ""
-                };
+                });
 
             }
             finally
             {
                 Sqldbmanager.Close();
             }
-            return Lobj;
+            return lstDetails;
         }
 
         public object TranscationManagement(JsonMember.TranscationManagement obj)

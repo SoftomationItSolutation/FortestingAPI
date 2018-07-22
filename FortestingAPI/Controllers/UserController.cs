@@ -43,10 +43,10 @@ namespace FortestingAPI.Controllers
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
-        [HttpGet]
-        public object GetAllProfileDetails()
+        [HttpPost]
+        public object GetAllProfileDetails(JsonMember.UserDetails obj)
         {
-            string Det = JsonConvert.SerializeObject(UserMaster.GetAllProfileDetails(), Formatting.Indented);
+            string Det = JsonConvert.SerializeObject(UserMaster.GetAllProfileDetails(obj), Formatting.Indented);
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
