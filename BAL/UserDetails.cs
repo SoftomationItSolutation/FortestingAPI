@@ -396,6 +396,62 @@ namespace BAL
             return Lobj;
         }
 
+        public object GetAllProfileDetails()
+        {
+            LoginReturn Lobj = new LoginReturn();
+
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(0);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_GetCompletePoflieDetails");
+                if (DS.Tables[1].Rows.Count > 0)
+                {
+                    Lobj = new LoginReturn()
+                    {
+                        flag = "true",
+                        Message = "Success",
+                        EmailId = DS.Tables[1].Rows[0]["EmailId"].ToString(),
+                        MobileNo = DS.Tables[1].Rows[0]["MobileNo"].ToString(),
+                        Name = DS.Tables[1].Rows[0]["Name"].ToString(),
+                        UserName = DS.Tables[1].Rows[0]["UserName"].ToString(),
+                        UserId = DS.Tables[1].Rows[0]["UserId"].ToString()
+                    };
+                }
+                else
+                {
+                    Lobj = new LoginReturn()
+                    {
+                        flag = "false",
+                        Message = "Invalid Email/Mobile",
+                        EmailId = "",
+                        MobileNo = "",
+                        Name = "",
+                        UserId = ""
+                    };
+
+                }
+            }
+            catch (Exception Ex)
+            {
+                Lobj = new LoginReturn()
+                {
+                    flag = "false",
+                    Message = "Invalid Email/Mobile",
+                    EmailId = "",
+                    MobileNo = "",
+                    Name = "",
+                    UserId = ""
+                };
+
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+            return Lobj;
+        }
+
         public object TranscationManagement(JsonMember.TranscationManagement obj)
         {
             TranscationReturn obj1 = new TranscationReturn();
