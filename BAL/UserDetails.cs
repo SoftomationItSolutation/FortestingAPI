@@ -100,7 +100,7 @@ namespace BAL
                     
                 }
             }
-            catch (Exception Ex)
+            catch (Exception)
             {
                 Lobj = new LoginReturn()
                 {
@@ -499,6 +499,46 @@ namespace BAL
             return obj1;
         }
 
+        public object GetTranscationManagement(JsonMember.TranscationManagement obj)
+        {
+            TranscationDetails obj1 = new TranscationDetails();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(1);
+                Sqldbmanager.AddParameters(0, "@TranscationId", obj.TranscationId);
+                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetTranscationDetailbyId");
+                if (idr.Read())
+                {
+                    obj1 = new TranscationDetails()
+                    {
+                        flag = "true",
+                        TranscationId = Convert.ToString(idr["TranscationId"]),
+                        Amount = Convert.ToDecimal(idr["Amount"].ToString()),
+                        UserId = Convert.ToInt64(idr["UserId"].ToString()),
+                        RewardId = Convert.ToInt64(idr["RequestId"].ToString()),
+                    };
+                }
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Get Transcation Management", Ex.Message.ToString(), "SP Name: USP_GetTranscationDetailbyId");
+                obj1 = new TranscationDetails()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    TranscationId = ""
+                };
+            }
+            finally
+            {
+                idr.Close();
+                Sqldbmanager.Close();
+            }
+
+            return obj1;
+        }
+
         public object GetAvailableBalance(JsonMember.TranscationManagement obj)
         {
             TranscationReturn obj1 = new TranscationReturn();
@@ -681,9 +721,52 @@ namespace BAL
             return lstTranscationDetails;
         }
 
+        public object UpdateTranscationStatus(JsonMember.TranscationManagement obj)
+        {
+            TranscationReturn obj1 = new TranscationReturn();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(3);
+                Sqldbmanager.AddParameters(0, "@TranscationId", obj.TranscationId);
+                Sqldbmanager.AddParameters(1, "@ProcessId", obj.ProcessId);
+                Sqldbmanager.AddParameters(2, "@ProcessStatus", obj.ProcessStatus);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_UpdateTranscationStatus");
+                obj1 = new TranscationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    TranscationId = DS.Tables[0].Rows[0]["TranscationId"].ToString(),
+                    AvailableBalance = Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString())
+                };
+
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Transcation Management", Ex.Message.ToString(), "SP Name: USP_TranscationManagement");
+                obj1 = new TranscationReturn()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    TranscationId = ""
+                };
+
+            }
+            finally
+            {
+                
+                Sqldbmanager.Close();
+            }
+
+
+
+            return obj1;
+        }
+
         public object RewardManagementInsertUpdate(JsonMember.RewardManagement obj)
         {
             RewardManagement obj1 = new RewardManagement();
+            List<JsonMember.RewardManagementDetails> lstDetails = new List<JsonMember.RewardManagementDetails>();
             try
             {
                 Sqldbmanager.Open();
@@ -693,7 +776,7 @@ namespace BAL
                 Sqldbmanager.AddParameters(2, "@ValidDay", obj.ValidDay);
                 Sqldbmanager.AddParameters(3, "@RewardId", obj.RewardId);
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_RewardManagement");
-                List<JsonMember.RewardManagementDetails> lstDetails = new List<JsonMember.RewardManagementDetails>();
+                
                 while (idr.Read())
                 {
                     lstDetails.Add(new JsonMember.RewardManagementDetails()

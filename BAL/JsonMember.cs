@@ -32,8 +32,12 @@ namespace BAL
             public Int64 RequestId { get; set; }
             public Int64 RewardId { get; set; }
             public String MsgDescription { get; set; }
+            public String TranscationId { get; set; }
+            public String ProcessId { get; set; }
+            public String ProcessStatus { get; set; }
             public String TranscationSource { get; set; }
             public Decimal Amount { get; set; }
+            
             public List<TranscationDetails> lstTranscationDetails;
         }
       
@@ -42,6 +46,7 @@ namespace BAL
             public Int64 UserId { get; set; }
             public Int64 TranscationSourceId { get; set; }
             public Int64 PartnerUserId { get; set; }
+            public Int64 RewardId { get; set; }
             public string UserLoginId { get; set; }
             public string EmailId { get; set; }
             public string MobileNo { get; set; }

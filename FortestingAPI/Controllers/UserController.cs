@@ -93,12 +93,25 @@ namespace FortestingAPI.Controllers
         }
 
         [HttpPost]
+        public string GetTranscationManagement(JsonMember.TranscationManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.GetTranscationManagement(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+        
+        [HttpPost]
         public string GetAvailableBalance(JsonMember.TranscationManagement obj)
         {
             string Det = JsonConvert.SerializeObject(UserMaster.GetAvailableBalance(obj), Formatting.Indented);
             return Det.Replace("\r", "").Replace("\n", "");
         }
 
+        [HttpPost]
+        public string UpdateTranscationStatus(JsonMember.TranscationManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.UpdateTranscationStatus(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
         [HttpPost]
         public object GetTranscationDetails(JsonMember.TranscationManagement obj)
         {
