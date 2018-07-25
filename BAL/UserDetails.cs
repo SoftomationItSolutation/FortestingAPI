@@ -341,7 +341,7 @@ namespace BAL
 
         public object GetProfileByLogin(JsonMember.UserDetails obj)
         {
-            List<JsonMember.LoginReturn> lstDetails = new List<JsonMember.LoginReturn>();
+            LoginReturn lstDetails = new LoginReturn();
 
             try
             {
@@ -351,23 +351,21 @@ namespace BAL
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_LoginMaster");
                 if (idr.NextResult())
                 {
-                    while (idr.Read())
+                    lstDetails = new LoginReturn()
                     {
-                        lstDetails.Add(new JsonMember.LoginReturn()
-                        {
-                            flag = "true",
-                            Message = "Success",
-                            EmailId = Convert.ToString(idr["EmailId"]),
-                            MobileNo = Convert.ToString(idr["MobileNo"]),
-                            Name = Convert.ToString(idr["Name"]),
-                            UserName = Convert.ToString(idr["UserName"]),
-                            UserId = Convert.ToString(idr["UserId"])
-                        });
-                    }
+                        flag = "true",
+                        Message = "Success",
+                        EmailId = Convert.ToString(idr["EmailId"]),
+                        MobileNo = Convert.ToString(idr["MobileNo"]),
+                        Name = Convert.ToString(idr["Name"]),
+                        UserName = Convert.ToString(idr["UserName"]),
+                        UserId = Convert.ToString(idr["UserId"])
+                    };
+                    
                 }
                 else
                 {
-                    lstDetails.Add(new JsonMember.LoginReturn()
+                    lstDetails = new LoginReturn()
                     {
                         flag = "false",
                         Message = "No User Found",
@@ -375,13 +373,13 @@ namespace BAL
                         MobileNo = "",
                         Name = "",
                         UserId = ""
-                    });
+                    };
 
                 }
             }
             catch (Exception Ex)
             {
-                lstDetails.Add(new JsonMember.LoginReturn()
+                lstDetails = new LoginReturn()
                 {
                     flag = "false",
                     Message = Ex.Message.ToString(),
@@ -389,7 +387,7 @@ namespace BAL
                     MobileNo = "",
                     Name = "",
                     UserId = ""
-                });
+                };
 
             }
             finally
@@ -681,8 +679,10 @@ namespace BAL
                         flag = "true",
                         Message = "success",
                         UserId = Convert.ToInt64(idr["UserId"]),
+                       
                         TranscationSourceId = Convert.ToInt64(idr["TranscationSourceId"]),
                         PartnerUserId = Convert.ToInt64(idr["PartnerUserId"]),
+                        TranscationStatus = Convert.ToString(idr["TranscationStatus"]),
                         UserLoginId = Convert.ToString(idr["UserLoginId"]),
                         EmailId = Convert.ToString(idr["EmailId"]),
                         MobileNo = Convert.ToString(idr["MobileNo"]),

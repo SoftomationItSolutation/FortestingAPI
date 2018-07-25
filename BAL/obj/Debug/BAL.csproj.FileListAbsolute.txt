@@ -25,3 +25,4 @@ D:\Projects\MyApi\FortestingAPI\BAL\bin\Newtonsoft.Json.xml
 D:\Projects\MyApi\FortestingAPI\BAL\bin\Twilio.xml
 D:\Projects\MyApi\FortestingAPI\BAL\obj\Debug\BAL.csproj.CoreCompileInputs.cache
 D:\Projects\MyApi\FortestingAPI\BAL\obj\Debug\BAL.csproj.CopyComplete
+D:\Projects\MyApi\FortestingAPI\BAL\obj\Debug\BAL.csprojAssemblyReference.cache

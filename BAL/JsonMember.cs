@@ -53,6 +53,7 @@ namespace BAL
             public string TranscationId { get; set; }
             public Decimal Amount { get; set; }
             public Decimal AvailableBalance { get; set; }
+            public string TranscationStatus { get; set; }
             public string TranscationSource { get; set; }
             public string TranscationDetail { get; set; }
             public string PartnerLoginId { get; set; }
