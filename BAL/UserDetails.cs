@@ -348,20 +348,20 @@ namespace BAL
                 Sqldbmanager.Open();
                 Sqldbmanager.CreateParameters(1);
                 Sqldbmanager.AddParameters(0, "@LoginId", obj.LoginId);
-                idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_LoginMaster");
-                if (idr.NextResult())
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_LoginMaster");
+                if (DS.Tables[1].Rows.Count > 0)
                 {
                     lstDetails = new LoginReturn()
                     {
                         flag = "true",
                         Message = "Success",
-                        EmailId = Convert.ToString(idr["EmailId"]),
-                        MobileNo = Convert.ToString(idr["MobileNo"]),
-                        Name = Convert.ToString(idr["Name"]),
-                        UserName = Convert.ToString(idr["UserName"]),
-                        UserId = Convert.ToString(idr["UserId"])
+                        EmailId = DS.Tables[1].Rows[0]["EmailId"].ToString(),
+                        MobileNo = DS.Tables[1].Rows[0]["MobileNo"].ToString(),
+                        Name = DS.Tables[1].Rows[0]["Name"].ToString(),
+                        UserName = DS.Tables[1].Rows[0]["UserName"].ToString(),
+                        UserId = DS.Tables[1].Rows[0]["UserId"].ToString()
                     };
-                    
+
                 }
                 else
                 {
@@ -619,7 +619,7 @@ namespace BAL
                             LTime = Convert.ToString(idr["LTime"]),
                             UserName = Convert.ToString(idr["UserName"]),
                             MobileNo = Convert.ToString(idr["MobileNo"]),
-                            PartnerId = Convert.ToInt64(idr["RequestToId"])
+                            PartnerId = Convert.ToInt64(idr["RequesterId"])
                         });
                     }
                 }

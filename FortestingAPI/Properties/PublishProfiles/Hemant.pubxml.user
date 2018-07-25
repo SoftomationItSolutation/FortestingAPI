@@ -79,10 +79,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:44</publishTime>
     </File>
     <File Include="bin/BAL.dll">
-      <publishTime>07/25/2018 10:10:40</publishTime>
+      <publishTime>07/25/2018 12:51:17</publishTime>
     </File>
     <File Include="bin/BAL.pdb">
-      <publishTime>07/25/2018 10:10:40</publishTime>
+      <publishTime>07/25/2018 12:51:17</publishTime>
     </File>
     <File Include="bin/Braintree.dll">
       <publishTime>07/23/2018 20:26:07</publishTime>
@@ -97,10 +97,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2018 13:11:44</publishTime>
     </File>
     <File Include="bin/FortestingAPI.dll">
-      <publishTime>07/25/2018 10:10:42</publishTime>
+      <publishTime>07/25/2018 12:51:20</publishTime>
     </File>
     <File Include="bin/FortestingAPI.pdb">
-      <publishTime>07/25/2018 10:10:42</publishTime>
+      <publishTime>07/25/2018 12:51:21</publishTime>
     </File>
     <File Include="bin/JWT.dll">
       <publishTime>05/15/2015 10:15:52</publishTime>
