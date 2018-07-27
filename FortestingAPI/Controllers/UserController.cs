@@ -58,6 +58,13 @@ namespace FortestingAPI.Controllers
         }
 
         [HttpPost]
+        public object UpdatePersonalDetails(JsonMember.UserDetails obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.UpdatePersonalDetails(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
+        [HttpPost]
         public string ValidateOTP(JsonMember.UserDetails obj)
         {
             string Det = JsonConvert.SerializeObject(UserMaster.ValidateOTP(obj), Formatting.Indented);
