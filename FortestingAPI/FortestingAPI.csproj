@@ -324,6 +324,7 @@
     <Folder Include="assets\" />
     <Folder Include="css\" />
     <Folder Include="js\" />
+    <Folder Include="UserProfilePictures\" />
     <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
