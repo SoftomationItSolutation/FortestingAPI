@@ -97,6 +97,9 @@ namespace BAL
             public string MobileNo { get; set; }
             public string UserId { get; set; }
             public string UserName { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string ProfilePicPath { get; set; }
         }
 
         public class NotificationManagement

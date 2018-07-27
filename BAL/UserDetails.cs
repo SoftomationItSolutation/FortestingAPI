@@ -20,7 +20,7 @@ namespace BAL
         DataSet DS = new DataSet();
         DataTable dt = new DataTable();
         Email objEMail = new Email();
-        
+
         IDataReader idr;
 
         public DataSet LogError(string ModuleName, string ErrorSource, string Description)
@@ -59,7 +59,7 @@ namespace BAL
                 {
                     if (DS.Tables[0].Rows[0]["UserPassword"].ToString() == obj.Password)
                     {
-                        
+
                         Lobj = new LoginReturn()
                         {
                             flag = "true",
@@ -68,9 +68,12 @@ namespace BAL
                             MobileNo = DS.Tables[1].Rows[0]["MobileNo"].ToString(),
                             Name = DS.Tables[1].Rows[0]["Name"].ToString(),
                             UserName = DS.Tables[1].Rows[0]["UserName"].ToString(),
-                            UserId = DS.Tables[1].Rows[0]["UserId"].ToString()
+                            UserId = DS.Tables[1].Rows[0]["UserId"].ToString(),
+                            FirstName = DS.Tables[1].Rows[0]["FirstName"].ToString(),
+                            LastName = DS.Tables[1].Rows[0]["LastName"].ToString(),
+                            ProfilePicPath = DS.Tables[1].Rows[0]["ProfilePicPath"].ToString()
                         };
-                        
+
                     }
                     else
                     {
@@ -81,9 +84,12 @@ namespace BAL
                             EmailId = "",
                             MobileNo = "",
                             Name = "",
-                            UserId=""
+                            UserId = "",
+                            FirstName = "",
+                            LastName = "",
+                            ProfilePicPath = "",
                         };
-                        
+
                     }
                 }
                 else
@@ -95,9 +101,12 @@ namespace BAL
                         EmailId = "",
                         MobileNo = "",
                         Name = "",
-                        UserId = ""
+                        UserId = "",
+                        FirstName = "",
+                        LastName = "",
+                        ProfilePicPath = "",
                     };
-                    
+
                 }
             }
             catch (Exception)
@@ -109,9 +118,12 @@ namespace BAL
                     EmailId = "",
                     MobileNo = "",
                     Name = "",
-                    UserId = ""
+                    UserId = "",
+                    FirstName = "",
+                    LastName = "",
+                    ProfilePicPath = "",
                 };
-                
+
             }
             finally
             {
@@ -168,7 +180,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-           
+
             return obj1;
         }
 
@@ -207,7 +219,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-           
+
             return obj1;
         }
 
@@ -250,7 +262,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-           
+
             return obj1;
         }
 
@@ -294,7 +306,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-           
+
             return obj1;
         }
 
@@ -335,7 +347,7 @@ namespace BAL
             {
                 Sqldbmanager.Close();
             }
-            
+
             return obj1;
         }
 
@@ -359,7 +371,10 @@ namespace BAL
                         MobileNo = DS.Tables[1].Rows[0]["MobileNo"].ToString(),
                         Name = DS.Tables[1].Rows[0]["Name"].ToString(),
                         UserName = DS.Tables[1].Rows[0]["UserName"].ToString(),
-                        UserId = DS.Tables[1].Rows[0]["UserId"].ToString()
+                        UserId = DS.Tables[1].Rows[0]["UserId"].ToString(),
+                        FirstName = DS.Tables[1].Rows[0]["FirstName"].ToString(),
+                        LastName = DS.Tables[1].Rows[0]["LastName"].ToString(),
+                        ProfilePicPath = DS.Tables[1].Rows[0]["ProfilePicPath"].ToString()
                     };
 
                 }
@@ -372,7 +387,10 @@ namespace BAL
                         EmailId = "",
                         MobileNo = "",
                         Name = "",
-                        UserId = ""
+                        UserId = "",
+                        FirstName = "",
+                        LastName = "",
+                        ProfilePicPath = "",
                     };
 
                 }
@@ -386,7 +404,10 @@ namespace BAL
                     EmailId = "",
                     MobileNo = "",
                     Name = "",
-                    UserId = ""
+                    UserId = "",
+                    FirstName = "",
+                    LastName = "",
+                    ProfilePicPath = "",
                 };
 
             }
@@ -399,7 +420,7 @@ namespace BAL
 
         public object GetAllProfileDetails(JsonMember.UserDetails obj)
         {
-            
+
             List<JsonMember.LoginReturn> lstDetails = new List<JsonMember.LoginReturn>();
             try
             {
@@ -407,7 +428,8 @@ namespace BAL
                 Sqldbmanager.CreateParameters(1);
                 Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_GetCompletePoflieDetails");
-                if (idr.Read()) {
+                if (idr.Read())
+                {
                     while (idr.Read())
                     {
                         lstDetails.Add(new JsonMember.LoginReturn()
@@ -418,7 +440,10 @@ namespace BAL
                             MobileNo = Convert.ToString(idr["MobileNo"]),
                             Name = Convert.ToString(idr["Name"]),
                             UserName = Convert.ToString(idr["UserName"]),
-                            UserId = Convert.ToString(idr["UserId"])
+                            UserId = Convert.ToString(idr["UserId"]),
+                            FirstName = Convert.ToString(idr["FirstName"]),
+                            LastName = Convert.ToString(idr["LastName"]),
+                            ProfilePicPath = Convert.ToString(idr["ProfilePicPath"])
                         });
                     }
                 }
@@ -431,7 +456,10 @@ namespace BAL
                         EmailId = "",
                         MobileNo = "",
                         Name = "",
-                        UserId = ""
+                        UserId = "",
+                        FirstName = "",
+                        LastName = "",
+                        ProfilePicPath = "",
                     });
 
                 }
@@ -445,7 +473,10 @@ namespace BAL
                     EmailId = "",
                     MobileNo = "",
                     Name = "",
-                    UserId = ""
+                    UserId = "",
+                    FirstName = "",
+                    LastName = "",
+                    ProfilePicPath = "",
                 });
 
             }
@@ -486,14 +517,14 @@ namespace BAL
                 {
                     flag = "false",
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
-                    TranscationId=""
+                    TranscationId = ""
                 };
             }
             finally
             {
                 Sqldbmanager.Close();
             }
-           
+
             return obj1;
         }
 
@@ -569,20 +600,20 @@ namespace BAL
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
                     TranscationId = "",
                     AvailableBalance = 0,
-                    transferMoney=0,
-                    reciverMoney=0,
-                    lastmonth=0,
-                    lastmonthCredit=0,
-                    lastmonthDebit=0
+                    transferMoney = 0,
+                    reciverMoney = 0,
+                    lastmonth = 0,
+                    lastmonthCredit = 0,
+                    lastmonthDebit = 0
                 };
             }
             finally
             {
                 Sqldbmanager.Close();
             }
-            
 
-            
+
+
             return obj1;
         }
 
@@ -635,7 +666,7 @@ namespace BAL
                             NotificationCount = Convert.ToInt64(idr["NotificationCount"].ToString()),
                             RequestMoneyNotificationCount = Convert.ToInt64(idr["RequestMoneyNotificationCount"].ToString()),
                             lstNotificationManagementDetails = lstDetails,
-                            lstMoneyRequestNotificationDetails=lstMoneyDetails
+                            lstMoneyRequestNotificationDetails = lstMoneyDetails
                         };
                     }
                 }
@@ -651,7 +682,7 @@ namespace BAL
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
                     AvailableBalance = 0,
                     NotificationCount = 0,
-                    RequestMoneyNotificationCount=0
+                    RequestMoneyNotificationCount = 0
                 };
             }
             finally
@@ -679,7 +710,7 @@ namespace BAL
                         flag = "true",
                         Message = "success",
                         UserId = Convert.ToInt64(idr["UserId"]),
-                       
+
                         TranscationSourceId = Convert.ToInt64(idr["TranscationSourceId"]),
                         PartnerUserId = Convert.ToInt64(idr["PartnerUserId"]),
                         TranscationStatus = Convert.ToString(idr["TranscationStatus"]),
@@ -698,17 +729,17 @@ namespace BAL
                         LTime = Convert.ToString(idr["LTime"]),
                     });
                 }
-                
+
             }
             catch (Exception Ex)
             {
                 DS = LogError("Get Available Balance", Ex.Message.ToString(), "SP Name: USP_GetTranscationDetails");
                 lstTranscationDetails.Add(new JsonMember.TranscationDetails()
                 {
-                    flag= "false",
+                    flag = "false",
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString()
                 });
-                
+
             }
             finally
             {
@@ -754,7 +785,7 @@ namespace BAL
             }
             finally
             {
-                
+
                 Sqldbmanager.Close();
             }
 
@@ -776,7 +807,7 @@ namespace BAL
                 Sqldbmanager.AddParameters(2, "@ValidDay", obj.ValidDay);
                 Sqldbmanager.AddParameters(3, "@RewardId", obj.RewardId);
                 idr = Sqldbmanager.ExecuteReader(CommandType.StoredProcedure, "USP_RewardManagement");
-                
+
                 while (idr.Read())
                 {
                     lstDetails.Add(new JsonMember.RewardManagementDetails()
@@ -799,7 +830,7 @@ namespace BAL
                         };
                     }
                 }
-               
+
             }
             catch (Exception Ex)
             {
@@ -944,7 +975,5 @@ namespace BAL
 
             return obj1;
         }
-
-       
     }
 }
