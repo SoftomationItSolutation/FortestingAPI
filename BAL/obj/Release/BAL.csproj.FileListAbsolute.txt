@@ -20,3 +20,22 @@ D:\Projects\MyApi\FortestingAPI\BAL\bin\Twilio.dll
 D:\Projects\MyApi\FortestingAPI\BAL\bin\Newtonsoft.Json.xml
 D:\Projects\MyApi\FortestingAPI\BAL\bin\Twilio.xml
 D:\Projects\MyApi\FortestingAPI\BAL\obj\Release\BAL.csprojAssemblyReference.cache
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\BAL.dll.config
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\BAL.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\BAL.pdb
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\JWT.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\Newtonsoft.Json.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\System.Net.Http.Formatting.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\System.Web.Http.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\System.Web.Http.WebHost.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\Twilio.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\Newtonsoft.Json.xml
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\System.Net.Http.Formatting.xml
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\System.Web.Http.xml
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\System.Web.Http.WebHost.xml
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\bin\Twilio.xml
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\obj\Release\BAL.csprojAssemblyReference.cache
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\obj\Release\BAL.csproj.CoreCompileInputs.cache
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\obj\Release\BAL.csproj.CopyComplete
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\obj\Release\BAL.dll
+E:\Firmwise\Wallet Api\FortestingAPI\BAL\obj\Release\BAL.pdb
