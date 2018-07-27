@@ -184,6 +184,54 @@ namespace BAL
             return obj1;
         }
 
+        public object UpdatePersonalDetails(JsonMember.UserDetails obj)
+        {
+            registrationReturn obj1 = new registrationReturn();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(5);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                Sqldbmanager.AddParameters(1, "@FirstName", obj.FirstName.Trim());
+                Sqldbmanager.AddParameters(2, "@LastName", obj.LastName.Trim());
+                Sqldbmanager.AddParameters(3, "@EmailId", obj.EmailId.Trim());
+                Sqldbmanager.AddParameters(4, "@ProfilePicPath", obj.ProfilePicPath);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_UpdateuserProfile");
+                if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
+                {
+                    objEMail.SendSMSbyTillio(obj.MobileNo, "Flipprr Verification Code " + DS.Tables[0].Rows[0]["OTP"].ToString());
+                    //Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
+                    //thrdSms.Start();
+
+                    //Thread thrdMail = new Thread(() => MailResult = (new Email()).sendMail(obj.EmailId, "", "Flipprr Verification Code", DS.Tables[0].Rows[0]["OTP"].ToString(), ""));
+                    //thrdMail.Start();
+
+                }
+                obj1 = new registrationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+                };
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Update Personal Detail", Ex.Message.ToString(), "SP Name: USP_UpdateuserProfile");
+                obj1 = new registrationReturn()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    UserId = ""
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+
+            return obj1;
+        }
+
         public object ValidateOTP(JsonMember.UserDetails obj)
         {
             registrationReturn obj1 = new registrationReturn();

@@ -22,6 +22,9 @@ namespace BAL
             public string MobileNo { get; set; }
             public string Status { get; set; }
             public string LoginId { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string ProfilePicPath { get; set; }
         }
 
         public class TranscationManagement
@@ -100,6 +103,7 @@ namespace BAL
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string ProfilePicPath { get; set; }
+                
         }
 
         public class NotificationManagement
