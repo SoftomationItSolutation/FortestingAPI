@@ -186,7 +186,7 @@ namespace BAL
 
         public object UpdatePersonalDetails(JsonMember.UserDetails obj)
         {
-            registrationReturn obj1 = new registrationReturn();
+            LoginReturn Lobj = new LoginReturn();
             try
             {
                 Sqldbmanager.Open();
@@ -197,39 +197,44 @@ namespace BAL
                 Sqldbmanager.AddParameters(3, "@EmailId", obj.EmailId.Trim());
                 Sqldbmanager.AddParameters(4, "@ProfilePicPath", obj.ProfilePicPath);
                 DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_UpdateuserProfile");
-                if (Convert.ToBoolean(DS.Tables[0].Rows[0]["flag"]) == true)
-                {
-                    objEMail.SendSMSbyTillio(obj.MobileNo, "Flipprr Verification Code " + DS.Tables[0].Rows[0]["OTP"].ToString());
-                    //Thread thrdSms = new Thread(() => SmsResult = (new Email()).SendSMS(obj.MobileNo, DS.Tables[0].Rows[0]["OTP"].ToString() + " is your flipprr verification code."));
-                    //thrdSms.Start();
-
-                    //Thread thrdMail = new Thread(() => MailResult = (new Email()).sendMail(obj.EmailId, "", "Flipprr Verification Code", DS.Tables[0].Rows[0]["OTP"].ToString(), ""));
-                    //thrdMail.Start();
-
-                }
-                obj1 = new registrationReturn()
+                Lobj = new LoginReturn()
                 {
                     flag = DS.Tables[0].Rows[0]["flag"].ToString(),
                     Message = DS.Tables[0].Rows[0]["Message"].ToString(),
-                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString()
+                    EmailId = DS.Tables[0].Rows[0]["EmailId"].ToString(),
+                    MobileNo = DS.Tables[0].Rows[0]["MobileNo"].ToString(),
+                    Name = DS.Tables[0].Rows[0]["Name"].ToString(),
+                    UserName = DS.Tables[0].Rows[0]["UserName"].ToString(),
+                    UserId = DS.Tables[0].Rows[0]["UserId"].ToString(),
+                    FirstName = DS.Tables[0].Rows[0]["FirstName"].ToString(),
+                    LastName = DS.Tables[0].Rows[0]["LastName"].ToString(),
+                    ProfilePicPath = DS.Tables[0].Rows[0]["ProfilePicPath"].ToString()
                 };
+
             }
             catch (Exception Ex)
             {
                 DS = LogError("Update Personal Detail", Ex.Message.ToString(), "SP Name: USP_UpdateuserProfile");
-                obj1 = new registrationReturn()
+                Lobj = new LoginReturn()
                 {
                     flag = "false",
                     Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
-                    UserId = ""
+                    EmailId = "",
+                    MobileNo = "",
+                    Name = "",
+                    UserId = "",
+                    FirstName = "",
+                    LastName = "",
+                    ProfilePicPath = "",
                 };
+              
             }
             finally
             {
                 Sqldbmanager.Close();
             }
 
-            return obj1;
+            return Lobj;
         }
 
         public object ValidateOTP(JsonMember.UserDetails obj)
