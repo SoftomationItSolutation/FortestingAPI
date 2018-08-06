@@ -118,7 +118,7 @@ namespace BAL
                     var message = MessageResource.Create(to: Recipient, from: from, body: Message);
                     result = true;
                 }
-                catch (Twilio.Exceptions.ApiException)
+                catch (Twilio.Exceptions.ApiException ex)
                 {
 
                     result= false;
