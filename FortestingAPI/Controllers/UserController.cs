@@ -179,6 +179,13 @@ namespace FortestingAPI.Controllers
         }
 
         [HttpPost]
+        public string AddRewardMoney(JsonMember.TranscationManagement obj)
+        {
+            string Det = JsonConvert.SerializeObject(UserMaster.AddRewardMoney(obj), Formatting.Indented);
+            return Det.Replace("\r", "").Replace("\n", "");
+        }
+
+        [HttpPost]
         public string GetTranscationManagement(JsonMember.TranscationManagement obj)
         {
             string Det = JsonConvert.SerializeObject(UserMaster.GetTranscationManagement(obj), Formatting.Indented);

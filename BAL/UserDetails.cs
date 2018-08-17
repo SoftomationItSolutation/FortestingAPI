@@ -581,6 +581,39 @@ namespace BAL
             return obj1;
         }
 
+        public object AddRewardMoney(JsonMember.TranscationManagement obj)
+        {
+            TranscationReturn obj1 = new TranscationReturn();
+            try
+            {
+                Sqldbmanager.Open();
+                Sqldbmanager.CreateParameters(2);
+                Sqldbmanager.AddParameters(0, "@UserId", obj.UserId);
+                Sqldbmanager.AddParameters(1, "@RewardId", obj.RewardId);
+                DS = Sqldbmanager.ExecuteDataSet(CommandType.StoredProcedure, "USP_AddRewardMoney");
+                obj1 = new TranscationReturn()
+                {
+                    flag = DS.Tables[0].Rows[0]["flag"].ToString(),
+                    Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                };
+            }
+            catch (Exception Ex)
+            {
+                DS = LogError("Add Reward Money", Ex.Message.ToString(), "SP Name: USP_AddRewardMoney");
+                obj1 = new TranscationReturn()
+                {
+                    flag = "false",
+                    Message = DS.Tables[0].Rows[0]["Meaasge"].ToString(),
+                    TranscationId = ""
+                };
+            }
+            finally
+            {
+                Sqldbmanager.Close();
+            }
+
+            return obj1;
+        }
         public object GetTranscationManagement(JsonMember.TranscationManagement obj)
         {
             TranscationDetails obj1 = new TranscationDetails();
