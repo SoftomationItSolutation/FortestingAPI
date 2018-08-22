@@ -595,6 +595,7 @@ namespace BAL
                 {
                     flag = DS.Tables[0].Rows[0]["flag"].ToString(),
                     Message = DS.Tables[0].Rows[0]["Message"].ToString(),
+                    AvailableBalance=Convert.ToDecimal(DS.Tables[0].Rows[0]["AvailableBalance"].ToString())
                 };
             }
             catch (Exception Ex)
@@ -614,6 +615,7 @@ namespace BAL
 
             return obj1;
         }
+
         public object GetTranscationManagement(JsonMember.TranscationManagement obj)
         {
             TranscationDetails obj1 = new TranscationDetails();
